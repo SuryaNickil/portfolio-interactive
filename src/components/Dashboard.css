@@ -1,6 +1,6 @@
 .dashboard {
   display: grid;
-  gap: 2rem;
+  gap: 1.5rem;
   animation: fadeIn 0.8s ease-out;
 }
 
@@ -15,6 +15,6 @@
 
 @media (max-width: 768px) {
   .dashboard {
-    gap: 1.5rem;
+    gap: 1rem;
   }
 }

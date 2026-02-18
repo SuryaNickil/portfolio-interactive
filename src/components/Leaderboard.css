@@ -1,11 +1,12 @@
 .leaderboard {
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .leaderboard h2 {
-  font-size: 1.3rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
   color: #e2e8f0;
+  font-weight: 600;
 }
 
 .table-container {
@@ -13,13 +14,14 @@
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.5));
   backdrop-filter: blur(10px);
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 12px;
-  padding: 1rem;
+  border-radius: 10px;
+  padding: 0.8rem;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.9rem;
 }
 
 thead tr {
@@ -28,16 +30,16 @@ thead tr {
 
 th {
   text-align: left;
-  padding: 1rem;
+  padding: 0.6rem;
   font-weight: 600;
   color: #60a5fa;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
 }
 
 td {
-  padding: 1rem;
+  padding: 0.6rem;
   border-bottom: 1px solid rgba(148, 163, 184, 0.1);
   color: #e2e8f0;
 }
@@ -48,6 +50,7 @@ tbody tr {
 
 tbody tr:hover {
   background: rgba(96, 165, 250, 0.1);
+  transform: scale(1.01);
 }
 
 tbody tr.top-agent {
@@ -55,14 +58,20 @@ tbody tr.top-agent {
   border-left: 3px solid #60a5fa;
 }
 
+tbody tr.top-agent:hover {
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0.15), rgba(52, 211, 153, 0.1));
+}
+
 .rank {
   font-weight: 600;
   color: #60a5fa;
+  min-width: 35px;
 }
 
 .name {
   font-weight: 500;
   color: #f1f5f9;
+  min-width: 140px;
 }
 
 .roi.positive {
@@ -92,13 +101,37 @@ tbody tr.top-agent {
   color: #cbd5e1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   th, td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.85rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
   }
 
   .table-container {
-    padding: 0.5rem;
+    padding: 0.6rem;
+  }
+
+  .name {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 640px) {
+  th, td {
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  .table-container {
+    padding: 0.4rem;
+    border-radius: 8px;
+  }
+
+  .rank {
+    min-width: 25px;
+  }
+
+  .name {
+    min-width: 80px;
   }
 }

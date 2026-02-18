@@ -15,13 +15,14 @@ function App() {
 
   const fetchDashboard = async () => {
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || '/api';
-      const response = await fetch(`${apiUrl}/dashboard`);
-      if (!response.ok) throw new Error('Failed to fetch dashboard');
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://agent-dashboard-api.onrender.com';
+      const response = await fetch(`${apiUrl}/api/dashboard`);
+      if (!response.ok) throw new Error(`Failed to fetch dashboard: ${response.status}`);
       const json = await response.json();
       setData(json);
       setError(null);
     } catch (err) {
+      console.error('Dashboard fetch error:', err);
       setError(err.message);
     } finally {
       setLoading(false);

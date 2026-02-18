@@ -1,16 +1,71 @@
-# React + Vite
+# 🤖 Agent Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Real-time trading agent performance dashboard. Visualizes the performance of 15 trend-following trading agents running on simulated capital.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🏆 **Live Leaderboard** — Top 3 agents with medals and performance metrics
+- 📊 **Performance Stats** — Summary metrics (total agents, runs, ROI)
+- 📈 **Full Rankings** — Complete leaderboard with win rates and P&L
+- 🔄 **Auto-Refresh** — Updates every 60 seconds
+- 🎨 **Apple-Level Design** — Glassmorphism, smooth animations, dark mode
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** React 18 + Vite
+- **Styling:** Modern CSS with animations and gradients
+- **Backend:** Express.js API
+- **Data:** JSON performance logs
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Install
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+Runs on `http://localhost:5173`
+
+### Build
+
+```bash
+npm run build
+```
+
+Produces optimized bundle in `dist/`
+
+### Run Server
+
+```bash
+npm run server
+```
+
+Or combined:
+
+```bash
+npm run start
+```
+
+Server runs on `http://localhost:3001` with frontend served as static files.
+
+## API
+
+### GET `/api/dashboard`
+
+Returns current agent performance data.
+
+## Deployment
+
+Deployed on Vercel (frontend) + Render (backend).
+
+---
+
+**Status:** 🟢 Active  
+**Repo:** https://github.com/SuryaNickil/portfolio-interactive

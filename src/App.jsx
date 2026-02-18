@@ -1,50 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Canvas3D from './components/Canvas3D';
-import Hero from './components/Hero';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import Navbar from './components/Navbar';
+import { useState, useEffect } from 'react';
+import './App.css';
+import Dashboard from './components/Dashboard';
 
-export default function App() {
-  const [isDark, setIsDark] = useState(true);
-  const [isScrolled, setIsScrolled] = useState(false);
+function App() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    fetchDashboard();
+    const interval = setInterval(fetchDashboard, 60000); // Refresh every 60s
+    return () => clearInterval(interval);
   }, []);
 
-  return (
-    <div className={isDark ? 'dark' : 'light'}>
-      <Navbar isScrolled={isScrolled} isDark={isDark} setIsDark={setIsDark} />
-      
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Canvas3D />
-        <Hero />
-        <Projects />
-        <Skills />
-        <Contact />
-      </motion.main>
+  const fetchDashboard = async () => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
+      const response = await fetch(`${apiUrl}/dashboard`);
+      if (!response.ok) throw new Error('Failed to fetch dashboard');
+      const json = await response.json();
+      setData(json);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      <motion.footer
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="py-8 text-center border-t border-white/10"
-      >
-        <p className="text-sm text-gray-400">
-          © 2026 Surya Vanukuri. Built with React, Three.js & Framer Motion.
-        </p>
-      </motion.footer>
+  return (
+    <div className="app">
+      <header className="header">
+        <h1>🤖 Agent Performance Dashboard</h1>
+        <p className="subtitle">Live trading agent simulator leaderboard</p>
+      </header>
+      
+      <main className="main">
+        {loading && <div className="loading">Loading...</div>}
+        {error && <div className="error">Error: {error}</div>}
+        {data && <Dashboard data={data} />}
+      </main>
+
+      <footer className="footer">
+        <p>Auto-refreshes every 60 seconds • Last update: {data?.timestamp || 'loading'}</p>
+      </footer>
     </div>
   );
 }
+
+export default App;

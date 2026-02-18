@@ -83,10 +83,33 @@ function getDashboardData() {
   };
 }
 
+function getPaperTradingData() {
+  const paperTradingPath = '../paper_trading_log.jsonl';
+  
+  if (!fs.existsSync(paperTradingPath)) {
+    return null;
+  }
+
+  const lines = fs.readFileSync(paperTradingPath, 'utf-8')
+    .split('\n')
+    .filter(line => line.trim());
+  
+  if (lines.length === 0) return null;
+  
+  // Get the latest paper trading session
+  const latestSession = JSON.parse(lines[lines.length - 1]);
+  return latestSession;
+}
+
 app.get('/api/dashboard', (req, res) => {
   try {
     const data = getDashboardData();
-    res.json(data);
+    const paperTrading = getPaperTradingData();
+    
+    res.json({
+      ...data,
+      paperTrading
+    });
   } catch (error) {
     console.error('Error fetching dashboard:', error);
     res.status(500).json({ error: error.message });

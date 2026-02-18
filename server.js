@@ -84,21 +84,27 @@ function getDashboardData() {
 }
 
 function getPaperTradingData() {
-  const paperTradingPath = '../paper_trading_log.jsonl';
+  const paperTradingPath = path.join(__dirname, 'paper_trading_log.jsonl');
   
   if (!fs.existsSync(paperTradingPath)) {
+    console.log('Paper trading file not found at:', paperTradingPath);
     return null;
   }
 
-  const lines = fs.readFileSync(paperTradingPath, 'utf-8')
-    .split('\n')
-    .filter(line => line.trim());
-  
-  if (lines.length === 0) return null;
-  
-  // Get the latest paper trading session
-  const latestSession = JSON.parse(lines[lines.length - 1]);
-  return latestSession;
+  try {
+    const lines = fs.readFileSync(paperTradingPath, 'utf-8')
+      .split('\n')
+      .filter(line => line.trim());
+    
+    if (lines.length === 0) return null;
+    
+    // Get the latest paper trading session
+    const latestSession = JSON.parse(lines[lines.length - 1]);
+    return latestSession;
+  } catch (error) {
+    console.error('Error reading paper trading data:', error);
+    return null;
+  }
 }
 
 app.get('/api/dashboard', (req, res) => {
